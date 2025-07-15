@@ -18,7 +18,7 @@ printf "\033[1;38;2;254;228;208m"
 printf "Install dependencies.\n"
 printf "\033[0m"
 sleep 1
-apt install coreutils p7zip gettext tar unzip zip git wget dpkg curl nano proot axel util-linux pv gawk clang binutils golang make
+apt install coreutils p7zip-full gettext tar unzip zip git wget dpkg curl nano proot axel util-linux pv gawk clang binutils golang make libcap-dev libseccomp-dev
 # Update submodule.
 printf "\033[1;38;2;254;228;208m"
 printf "Init submodules.\n"
@@ -33,10 +33,10 @@ sleep 1
 # Create build dir.
 mkdir build
 mkdir build/DEBIAN
-mkdir -p /usr/bin
-mkdir -p /usr/share
-mkdir -p /usr/share/daijin/proc/
-mkdir -p /usr/etc
+mkdir -p build/usr/bin
+mkdir -p build/usr/share
+mkdir -p build/usr/share/daijin/proc/
+mkdir -p build/usr/etc
 # Copy dpkg config file.
 cp -r dpkg-conf/* build/DEBIAN/
 chmod -R 755 build/DEBIAN
@@ -45,26 +45,25 @@ cd src/rurima
 git submodule update --init
 ./configure -s
 make
-cp rurima /usr/bin/
-echo "echo -e \"\033[33mruri is built-in in rurima now, please use \033[32mrurima r\033[33m instead\033[0m\"" >../../build/data/data/com.termux/files/usr/bin/ruri
-chmod 777 /usr/bin/ruri
+cp rurima ../../build/usr/bin/
+echo "echo -e \"\033[33mruri is built-in in rurima now, please use \033[32mrurima r\033[33m instead\033[0m\"" >../../build/usr/bin/ruri
+chmod 777 ../../build/usr/bin/ruri
 # Copy rootfstool.
 cd ../rootfstool
-termux-fix-shebang rootfstool
-cp rootfstool /usr/bin/
+cp rootfstool ../../build/usr/bin/
 # Return to root dir.
 cd ../..
 # Copy rurima config file.
-cp src/rurima.conf /usr/etc/rurima.conf
+cp src/rurima.conf build/usr/etc/rurima.conf
 # Decompress dummy files of procfs.
-tar -xf src/share/proc.tar.xz -C /usr/share/daijin/proc/
+tar -xf src/share/proc.tar.xz -C build/usr/share/daijin/proc/
 # Copy shared sh script.
-cp src/share/*.sh /usr/share/daijin/
+cp src/share/*.sh build/usr/share/daijin/
 # Copy daijin main script.
-cp src/daijin /usr/bin/
+cp src/daijin build/usr/bin/
 # Fix permission.
-#chmod 777 build/data/data/com.termux/files/usr/bin/*
-#chmod 777 build/data/data/com.termux/files/usr/share/daijin/*.sh
+chmod 755 build/usr/bin/*
+chmod 755 build/usr/share/daijin/*.sh
 cd build
 # Set build info.
 size=$(du -s . | awk '{printf $1}')

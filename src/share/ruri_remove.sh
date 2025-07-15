@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 # Copyright 2024 moe-hacker
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-chmod 777 /data/data/com.termux/files/usr/var/daijin/containers/*
+chmod 777 /usr/var/daijin/containers/*
 CONFIG_FILE=$1
 if [[ ! -e ${CONFIG_FILE} ]]; then
   echo -e "\033[31mError: cannot find config file.\033[0m" >&2

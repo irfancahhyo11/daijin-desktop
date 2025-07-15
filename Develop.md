@@ -32,16 +32,16 @@ proot --link2symlink -0 tar -xvf rootfs.tar.xz -C ./test
 ### Run the fixup script in container
 For ruri:      
 ```
-cp /data/data/com.termux/files/usr/share/daijin/fixup.sh ./test/tmp/
+cp /usr/share/daijin/fixup.sh ./test/tmp/
 unset LD_PRELOAD
 ruri ./test /tmp/fixup.sh
 ```
 For proot:      
 You should use the proot_start.sh in src/share      
-And you should make sure src/share/proc.tar.xz is unpacked to /data/data/com.termux/files/usr/share/daijin/proc/      
+And you should make sure src/share/proc.tar.xz is unpacked to /usr/share/daijin/proc/      
 ```
 # proot_start.sh will automatically mount $TMPDIR to /tmp
-cp /data/data/com.termux/files/usr/share/daijin/fixup.sh /data/data/com.termux/files/usr/tmp
+cp /usr/share/daijin/fixup.sh /tmp
 ./proot_start.sh -r ./test /tmp/fixup.sh
 ```
 ### Start the container:
@@ -52,7 +52,7 @@ ruri ./test
 ```
 For proot:      
 You should use the proot_start.sh in src/share.      
-And you should make sure src/share/proc.tar.xz is unpacked to /data/data/com.termux/files/usr/share/daijin/proc/      
+And you should make sure src/share/proc.tar.xz is unpacked to /usr/share/daijin/proc/      
 ```
 ./proot_start.sh -r ./test
 ```

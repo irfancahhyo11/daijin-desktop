@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 # Copyright 2024 moe-hacker
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,13 +31,11 @@ function select_range() {
   fi
   echo $range
 }
-mkdir -p /data/data/com.termux/files/usr/etc/daijin
-mkdir -p /data/data/com.termux/files/usr/var/daijin
 export VERSION="1.5"
 if command -v su >/dev/null; then
   if su -c true; then
     ROOTED=true
-    sudo chmod 777 /data/data/com.termux/files/usr/var/daijin/containers
+    sudo chmod 777 /usr/var/daijin/containers
   fi
 fi
 clear
@@ -52,33 +50,33 @@ case $todo in
   check_if_succeed $?
   if [[ ${ROOTFS_TOOL} == "2" ]]; then
     if [[ $ROOTED == "true" ]]; then
-      /data/data/com.termux/files/usr/share/daijin/create_rootfstool.sh -r
+      /usr/share/daijin/create_rootfstool.sh -r
     else
-      /data/data/com.termux/files/usr/share/daijin/create_rootfstool.sh
+      /usr/share/daijin/create_rootfstool.sh
     fi
   else
     if [[ $ROOTED == "true" ]]; then
-      /data/data/com.termux/files/usr/share/daijin/create_rurima.sh -r
+      /usr/share/daijin/create_rurima.sh -r
     else
-      /data/data/com.termux/files/usr/share/daijin/create_rurima.sh
+      /usr/share/daijin/create_rurima.sh
     fi
   fi
   ;;
 "2")
-  /data/data/com.termux/files/usr/share/daijin/start.sh
+  /usr/share/daijin/start.sh
   ;;
 "3")
-  /data/data/com.termux/files/usr/share/daijin/remove.sh
+  /usr/share/daijin/remove.sh
   ;;
 "4")
   if [[ $ROOTED == "true" ]]; then
-    /data/data/com.termux/files/usr/share/daijin/register.sh -r
+    /usr/share/daijin/register.sh -r
   else
-    /data/data/com.termux/files/usr/share/daijin/register.sh
+    /usr/share/daijin/register.sh
   fi
   ;;
 "5")
-  /data/data/com.termux/files/usr/share/daijin/clear_rootfs.sh
+  /usr/share/daijin/clear_rootfs.sh
   ;;
 "6") exit ;;
 esac

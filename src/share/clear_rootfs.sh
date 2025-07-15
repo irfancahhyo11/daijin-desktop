@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 # Copyright 2024 moe-hacker
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,11 @@
 #
 # Show warning.
 echo -e "\033[33m"
-echo "rootfs are downloaded to /data/data/com.termux/files/usr/var/daijin/rootfs/"
+echo "rootfs are downloaded to /usr/var/daijin/rootfs/"
 # Remove container.
 echo -e "\n\n"
 echo "Press CTRL-C to cancel this script"
 echo "Or press enter to remove cached rootfs"
 read -p "=>"
-sudo rm -rf /data/data/com.termux/files/usr/var/daijin/rootfs/*
-rm -rf /data/data/com.termux/files/usr/var/daijin/rootfs/*
+sudo rm -rf /usr/var/daijin/rootfs/*
+rm -rf /usr/var/daijin/rootfs/*
