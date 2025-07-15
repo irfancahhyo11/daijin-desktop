@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 # Copyright 2024 moe-hacker
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,20 +31,20 @@ function select_range() {
   fi
   echo $range
 }
-chmod 777 /data/data/com.termux/files/usr/var/daijin/containers/*
-if [[ $(ls /data/data/com.termux/files/usr/var/daijin/containers/) == "" ]]; then
+chmod 777 /usr/var/daijin/containers/*
+if [[ $(ls /usr/var/daijin/containers/) == "" ]]; then
   echo -e "\033[31mNo container found\033[0m" >&2
   exit 1
 fi
 j=1
-for i in $(ls /data/data/com.termux/files/usr/var/daijin/containers/); do
+for i in $(ls /usr/var/daijin/containers/); do
   echo -e "\033[1;38;2;254;228;208m[$j] ${i%%.conf} "
   j=$((j + 1))
 done
 num=$(select_range "Choose the container: " 1 $((j - 1)))
 check_if_succeed $?
 num=$(echo $num | cut -d "[" -f 2 | cut -d "]" -f 1)
-CONFIG_FILE=/data/data/com.termux/files/usr/var/daijin/containers/$(echo $(ls /data/data/com.termux/files/usr/var/daijin/containers/) | cut -d " " -f $num)
+CONFIG_FILE=/usr/var/daijin/containers/$(echo $(ls /usr/var/daijin/containers/) | cut -d " " -f $num)
 source ${CONFIG_FILE}
 if [[ ${backend} == "ruri" ]]; then
   sudo mount -o remount,suid /data >/dev/null 2>&1 || true
@@ -54,7 +54,7 @@ if [[ ${backend} == "ruri" ]]; then
   printf "\033[0m"
   sudo LD_PRELOAD= rurima r -c ${CONFIG_FILE}
 elif [[ ${backend} == "proot" ]]; then
-  /data/data/com.termux/files/usr/share/daijin/proot_start.sh -r $container_dir -e "$extra_args"
+  /usr/share/daijin/proot_start.sh -r $container_dir -e "$extra_args"
 else
   echo -e "\033[31mIncorrect config\033[0m" >&2
   exit 1

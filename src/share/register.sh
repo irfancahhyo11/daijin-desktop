@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 # Copyright 2024 moe-hacker
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-mkdir -p /data/data/com.termux/files/usr/var/daijin/containers/ 2>&1 >/dev/null
+mkdir -p /usr/var/daijin/containers/ 2>&1 >/dev/null
 printf "\033[1;38;2;254;228;208m"
 read -p "Enter the path of container > " CONTAINER_DIR
 CONTAINER_DIR=$(realpath $CONTAINER_DIR)
@@ -33,16 +33,16 @@ else
   BACKEND="proot"
 fi
 read -p "Name the container > " NAME
-if [[ -e /data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf ]]; then
+if [[ -e /usr/var/daijin/containers/${NAME}.conf ]]; then
   echo -e "\033[31mThe name has already been taken"
   exit 1
 fi
 if [[ $BACKEND == "ruri" ]]; then
-  sudo LD_PRELOAD= ruri -D -o /data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf $CONTAINER_DIR
-  printf "backend=\"ruri\"\n" | sudo tee -a /data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf 2>&1 >/dev/null
+  sudo LD_PRELOAD= ruri -D -o /usr/var/daijin/containers/${NAME}.conf $CONTAINER_DIR
+  printf "backend=\"ruri\"\n" | sudo tee -a /usr/var/daijin/containers/${NAME}.conf 2>&1 >/dev/null
 else
-  printf "backend=\"proot\"\ncontainer_dir=\"${CONTAINER_DIR}\"\n" >/data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf
+  printf "backend=\"proot\"\ncontainer_dir=\"${CONTAINER_DIR}\"\n" >/usr/var/daijin/containers/${NAME}.conf
 fi
-chmod 777 /data/data/com.termux/files/usr/var/daijin/containers/*
+chmod 777 /usr/var/daijin/containers/*
 echo "\033[1;38;2;254;228;208mRegistered container $NAME"
 printf "\033[0m"

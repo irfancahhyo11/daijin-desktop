@@ -4,5 +4,5 @@ Installed-Size: [size]
 Maintainer: Moe-hacker
 Version: 1.5
 Homepage: https://github.com/Moe-hacker/daijin
-Depends: tsu, coreutils, p7zip, tar, unzip, zip, git, wget, dpkg, curl, nano, proot, axel, termux-tools, util-linux, pv, gawk, file
-Description: Run linux with chroot-unshare/proot on your Android phone,safely and easy.
+Depends: coreutils, p7zip-full, tar, unzip, zip, git, wget, dpkg, curl, nano, proot, axel, util-linux, pv, gawk, file, libcap2-bin
+Description: Run linux containers with chroot-unshare/proot on x64 Debian systems, safely and easy.

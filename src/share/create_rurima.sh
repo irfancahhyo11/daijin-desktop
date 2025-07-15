@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 # Copyright 2024 moe-hacker
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,31 +33,31 @@ function select_range() {
 }
 function create_ruri_container() {
   if [[ $(whoami) != "root" ]]; then
-    sudo bash /data/data/com.termux/files/usr/share/daijin/create_rurima.sh re-exec
+    sudo bash /usr/share/daijin/create_rurima.sh re-exec
   fi
-  source /data/data/com.termux/files/usr/share/daijin/rurima_pull.sh
+  source /usr/share/daijin/rurima_pull.sh
   rurima_pull_rootfs
   unset LD_PRELOAD
-  cp /data/data/com.termux/files/usr/share/daijin/fixup.sh ${CONTAINER_DIR}/tmp/
+  cp /usr/share/daijin/fixup.sh ${CONTAINER_DIR}/tmp/
   chmod 777 ${CONTAINER_DIR}/tmp/fixup.sh
   rurima r ${CONTAINER_DIR} /bin/sh /tmp/fixup.sh
-  rurima r -D -o /data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf ${CONTAINER_DIR}
-  chmod 777 /data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf
-  printf "backend=\"ruri\"\n" | tee -a /data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf 2>&1 >/dev/null
+  rurima r -D -o /usr/var/daijin/containers/${NAME}.conf ${CONTAINER_DIR}
+  chmod 777 /usr/var/daijin/containers/${NAME}.conf
+  printf "backend=\"ruri\"\n" | tee -a /usr/var/daijin/containers/${NAME}.conf 2>&1 >/dev/null
 }
 function create_proot_container() {
-  source /data/data/com.termux/files/usr/share/daijin/rurima_pull.sh
+  source /usr/share/daijin/rurima_pull.sh
   rurima_pull_rootfs
   unset LD_PRELOAD
-  cp /data/data/com.termux/files/usr/share/daijin/fixup.sh ${CONTAINER_DIR}/tmp/
-  cp /data/data/com.termux/files/usr/share/daijin/fixup.sh /data/data/com.termux/files/usr/tmp/
+  cp /usr/share/daijin/fixup.sh ${CONTAINER_DIR}/tmp/
+  cp /usr/share/daijin/fixup.sh /usr/tmp/
   chmod 777 ${CONTAINER_DIR}/tmp/fixup.sh
-  chmod 777 /data/data/com.termux/files/usr/tmp/fixup.sh
-  /data/data/com.termux/files/usr/share/daijin/proot_start.sh -r ${CONTAINER_DIR} /tmp/fixup.sh
-  printf "backend=\"proot\"\ncontainer_dir=\"${CONTAINER_DIR}\"\n" >/data/data/com.termux/files/usr/var/daijin/containers/${NAME}.conf
+  chmod 777 /usr/tmp/fixup.sh
+  /usr/share/daijin/proot_start.sh -r ${CONTAINER_DIR} /tmp/fixup.sh
+  printf "backend=\"proot\"\ncontainer_dir=\"${CONTAINER_DIR}\"\n" >/usr/var/daijin/containers/${NAME}.conf
 }
 function main() {
-  mkdir -p /data/data/com.termux/files/usr/var/daijin/containers/
+  mkdir -p /usr/var/daijin/containers/
   if [[ $1 == "re-exec" ]]; then
     create_ruri_container
     exit 0

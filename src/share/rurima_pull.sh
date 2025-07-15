@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 # Copyright 2024 moe-hacker
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,7 +54,7 @@ function rurima_pull_lxc() {
   version=$(echo $versionlist | cut -d " " -f $num)
   export distro=$distro
   export version=$version
-  export CONTAINER_DIR=/data/data/com.termux/files/home/$distro-$version-$TIME
+  export CONTAINER_DIR=/usr/var/daijin/containers/$distro-$version-$TIME
   rurima lxc pull -o $distro -v $version -s ${CONTAINER_DIR}
 }
 function docker_search() {
@@ -94,7 +94,7 @@ function rurima_pull_docker() {
   docker_search_tag
   export distro="$(echo $image | sed -e "s/\//_/g")"
   export version=$tag
-  export CONTAINER_DIR=/data/data/com.termux/files/home/$distro-$version-$TIME
+  export CONTAINER_DIR=/usr/var/daijin/containers/$distro-$version-$TIME
   rurima docker pull -q -i $image -t $tag -s ${CONTAINER_DIR}
   check_if_succeed $?
 }

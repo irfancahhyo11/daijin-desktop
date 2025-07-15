@@ -1,0 +1,18 @@
+#!/bin/bash
+# Create daijin directories with proper permissions
+mkdir -p /usr/etc/daijin
+mkdir -p /usr/var/daijin
+mkdir -p /usr/var/daijin/containers
+mkdir -p /usr/var/daijin/rootfs
+
+# Set appropriate permissions
+chown root:root /usr/etc/daijin
+chmod 755 /usr/etc/daijin
+chown root:root /usr/var/daijin
+chmod 755 /usr/var/daijin
+chown root:root /usr/var/daijin/containers
+chmod 755 /usr/var/daijin/containers
+chown root:root /usr/var/daijin/rootfs
+chmod 755 /usr/var/daijin/rootfs
+
+exit 0
