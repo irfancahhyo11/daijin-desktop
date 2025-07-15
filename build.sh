@@ -18,7 +18,7 @@ printf "\033[1;38;2;254;228;208m"
 printf "Install dependencies.\n"
 printf "\033[0m"
 sleep 1
-pkg install ndk-multilib-native-static tsu coreutils p7zip gettext tar unzip zip git wget dpkg curl nano proot axel termux-tools util-linux pv gawk clang ndk-sysroot ndk-multilib libc-client-static libcap-static binutils libseccomp-static golang make
+apt install coreutils p7zip gettext tar unzip zip git wget dpkg curl nano proot axel util-linux pv gawk clang binutils golang make
 # Update submodule.
 printf "\033[1;38;2;254;228;208m"
 printf "Init submodules.\n"
@@ -33,10 +33,10 @@ sleep 1
 # Create build dir.
 mkdir build
 mkdir build/DEBIAN
-mkdir -p build/data/data/com.termux/files/usr/bin
-mkdir -p build/data/data/com.termux/files/usr/share
-mkdir -p build/data/data/com.termux/files/usr/share/daijin/proc/
-mkdir -p build/data/data/com.termux/files/usr/etc
+mkdir -p /usr/bin
+mkdir -p /usr/share
+mkdir -p /usr/share/daijin/proc/
+mkdir -p /usr/etc
 # Copy dpkg config file.
 cp -r dpkg-conf/* build/DEBIAN/
 chmod -R 755 build/DEBIAN
@@ -45,26 +45,26 @@ cd src/rurima
 git submodule update --init
 ./configure -s
 make
-cp rurima ../../build/data/data/com.termux/files/usr/bin/
+cp rurima /usr/bin/
 echo "echo -e \"\033[33mruri is built-in in rurima now, please use \033[32mrurima r\033[33m instead\033[0m\"" >../../build/data/data/com.termux/files/usr/bin/ruri
-chmod 777 ../../build/data/data/com.termux/files/usr/bin/ruri
+chmod 777 /usr/bin/ruri
 # Copy rootfstool.
 cd ../rootfstool
 termux-fix-shebang rootfstool
-cp rootfstool ../../build/data/data/com.termux/files/usr/bin/
+cp rootfstool /usr/bin/
 # Return to root dir.
 cd ../..
 # Copy rurima config file.
-cp src/rurima.conf build/data/data/com.termux/files/usr/etc/rurima.conf
+cp src/rurima.conf /usr/etc/rurima.conf
 # Decompress dummy files of procfs.
-tar -xf src/share/proc.tar.xz -C build/data/data/com.termux/files/usr/share/daijin/proc/
+tar -xf src/share/proc.tar.xz -C /usr/share/daijin/proc/
 # Copy shared sh script.
-cp src/share/*.sh build/data/data/com.termux/files/usr/share/daijin/
+cp src/share/*.sh /usr/share/daijin/
 # Copy daijin main script.
-cp src/daijin build/data/data/com.termux/files/usr/bin/
+cp src/daijin /usr/bin/
 # Fix permission.
-chmod 777 build/data/data/com.termux/files/usr/bin/*
-chmod 777 build/data/data/com.termux/files/usr/share/daijin/*.sh
+#chmod 777 build/data/data/com.termux/files/usr/bin/*
+#chmod 777 build/data/data/com.termux/files/usr/share/daijin/*.sh
 cd build
 # Set build info.
 size=$(du -s . | awk '{printf $1}')
